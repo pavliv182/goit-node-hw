@@ -8,7 +8,7 @@ const add = async (req, res, next) => {
     throw createError(400, error.message);
   }
 
-  const result = await Contact.create(req.bodt);
+  const result = await Contact.create(req.body);
 
   res.status(201).json(result);
 };
