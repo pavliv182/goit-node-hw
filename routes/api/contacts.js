@@ -5,7 +5,7 @@ const ctrl = require("../../controllers/contacts");
 const { ctrlWrapper } = require("../../helpers");
 const { validateBody } = require("../../middlewares");
 
-const schemas = require("../../schemas/contactSchema");
+const schemas = require("../../schemas");
 
 // После добавления контроллера стало так:
 
@@ -23,7 +23,11 @@ router.put(
 
 router.delete("/:contactId", ctrlWrapper(ctrl.removeById));
 
-router.patch("/:id/favorite");
+router.patch(
+  "/:id/favorite",
+  validateBody(schemas.updateFavoriteContactSchema),
+  ctrlWrapper(ctrl.favoriteById)
+);
 
 module.exports = router;
 
