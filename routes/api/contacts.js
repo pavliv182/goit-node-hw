@@ -23,6 +23,8 @@ router.put(
 
 router.delete("/:contactId", ctrlWrapper(ctrl.removeById));
 
+router.patch("/:id/favorite");
+
 module.exports = router;
 
 // До добавления котроллера было так:
