@@ -7,9 +7,13 @@ const updateById = async (req, res, next) => {
   if (error) {
     throw createError(400, "missing fields");
   }
-  const result = await Contact.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const result = await Contact.findByIdAndUpdate(
+    req.params.contactId,
+    req.body,
+    {
+      new: true,
+    }
+  );
 
   if (!result) {
     throw createError(404, "Not found");
