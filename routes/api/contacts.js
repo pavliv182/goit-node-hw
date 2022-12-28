@@ -3,30 +3,46 @@ const router = express.Router();
 const ctrl = require("../../controllers/contacts");
 
 const { ctrlWrapper } = require("../../helpers");
-const validateBody = require("../../middlewares");
+const { validateBody } = require("../../middlewares");
 
-const schemas = require("../../schemas");
+const { schemas } = require("../../models/contact");
 
-// После добавления контроллера стало так:
+router.get("/", ctrlWrapper(ctrl.listContacts));
 
-router.get("/", ctrlWrapper(ctrl.getAll));
+router.get("/:id", ctrlWrapper(ctrl.getContactById));
 
-router.get("/:contactId", ctrlWrapper(ctrl.getById));
-
-router.post("/", validateBody(schemas.contactSchema), ctrlWrapper(ctrl.add));
+router.post(
+  "/",
+  validateBody(schemas.addContactSchema),
+  ctrlWrapper(ctrl.addContact)
+);
 
 router.put(
   "/:id",
-  validateBody(schemas.contactSchema),
-  ctrlWrapper(ctrl.updateById)
+
+  validateBody(schemas.updateContactSchema),
+  ctrlWrapper(ctrl.updateContact)
 );
 
-router.delete("/:contactId", ctrlWrapper(ctrl.removeById));
+router.delete("/:id", ctrlWrapper(ctrl.removeContact));
 
 router.patch(
   "/:id/favorite",
-  validateBody(schemas.updateFavoriteContactSchema),
-  ctrlWrapper(ctrl.favoriteById)
+
+  validateBody(schemas.updateStatusContactSchema),
+  ctrlWrapper(ctrl.updateStatusContact)
 );
 
 module.exports = router;
+
+// contactSchema.post("save", (error, data, next) => {
+//   const { name, code } = error;
+//   error.status = name === "MongoServerError" && code === 11000 ? 409 : 400;
+//   next();
+// });
+
+// const {
+//   addContactSchema,
+//   updateContactSchema,
+//   updateStatusContactSchema,
+// } = require("../../schemas");
