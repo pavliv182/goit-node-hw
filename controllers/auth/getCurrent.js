@@ -1,7 +1,12 @@
 const getCurrent = (req, res) => {
-  const { name, email } = req.user;
+  const { email, subscription } = req.user;
 
-  res.json({ name, email });
+  res.status(200).json({
+    user: {
+      email,
+      subscription,
+    },
+  });
 };
 
 module.exports = getCurrent;
