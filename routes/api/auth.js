@@ -20,8 +20,8 @@ router.post(
 // signin
 router.post(
   "/login",
-  validateBody(schemas.loginSchema)
-  //   ctrlWrapper(ctrl.login)
+  validateBody(schemas.loginSchema),
+  ctrlWrapper(ctrl.login)
 );
 
 module.exports = router;
