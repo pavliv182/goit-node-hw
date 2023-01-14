@@ -30,6 +30,11 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -55,8 +60,3 @@ const schemas = {
 const User = model("user", userSchema);
 
 module.exports = { User, schemas };
-
-// owner: {
-//       type: SchemaTypes.ObjectId,
-//       ref: 'user',
-//     }
